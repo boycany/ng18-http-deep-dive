@@ -5,9 +5,13 @@
   @if (error()) {
     <p class="fallback-text">{{ error() }}</p>
   }
-  @if (places()) {
-    <app-places [places]="places()"></app-places>
-  } @else if (places().length === 0) {
+  @if (places().length === 0) {
     <p class="fallback-text">Add some places you like!</p>
+  }
+  @if (places()) {
+    <app-places
+      [places]="places()"
+      (selectPlace)="onRemovePlace($event)"
+    ></app-places>
   }
 </app-places-container>

@@ -4,7 +4,7 @@ import { PlacesContainerComponent } from '../places-container/places-container.c
 import { PlacesComponent } from '../places.component';
 import { HttpClient } from '@angular/common/http';
 import { Place } from '../place.model';
-import { catchError } from 'rxjs';
+import { Subscription, catchError } from 'rxjs';
 import { PlacesService } from '../places.service';
 
 @Component({
@@ -37,5 +37,17 @@ export class UserPlacesComponent implements OnInit {
         this.isFetching.set(false);
       },
     });
+  }
+
+  onRemovePlace(place: Place) {
+    if (window.confirm('Are you sure to remove this place?')) {
+      console.log('DELETE place :>> ', place);
+
+      this.placesService.removeUserPlace(place).subscribe({
+        next: (response) => {
+          console.log('response :>> ', response);
+        },
+      });
+    }
   }
 }
